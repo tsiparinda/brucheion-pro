@@ -2,6 +2,7 @@ package repo
 
 import (
 	"brucheion-pro/models"
+	"brucheion-pro/moving"
 	"encoding/csv"
 	"encoding/json"
 	"fmt"
@@ -133,9 +134,9 @@ func loadCEX(data string, user string) error {
 	for i := range texturns {
 		works[i] = strings.Join(strings.Split(texturns[i], ":")[0:4], ":") + ":"
 	}
-	works = removeDuplicatesUnordered(works)
+	works = moving.RemoveDuplicatesUnordered(works)
 	var boltworks []gocite.Work
-	var sortedcatalog []BoltCatalog
+	var sortedcatalog []models.Catalog
 	for i := range works {
 		work := works[i]
 		testexist := false
@@ -147,14 +148,14 @@ func loadCEX(data string, user string) error {
 		}
 		if testexist == false {
 			log.Println(works[i], " has no catalog entry")
-			sortedcatalog = append(sortedcatalog, BoltCatalog{})
+			sortedcatalog = append(sortedcatalog, models.Catalog{})
 		}
 
 		var passages []gocite.Passage
 		for j := range texturns {
 			if strings.Contains(texturns[j], work) {
 				var textareas []gocite.Triple
-				if contains(urns, texturns[j]) {
+				if moving.Contains(urns, texturns[j]) {
 					for k := range urns {
 						if urns[k] == texturns[j] {
 							textareas = append(textareas, gocite.Triple{Subject: texturns[j],
@@ -191,7 +192,7 @@ func loadCEX(data string, user string) error {
 		boltworks = append(boltworks, workToBeSaved)*/
 		boltworks = append(boltworks, gocite.Work{WorkID: work, Passages: passages, Ordered: true, First: gocite.PassLoc{Exists: true, PassageID: passages[0].PassageID, Index: 0}, Last: gocite.PassLoc{Exists: true, PassageID: passages[len(passages)-1].PassageID, Index: len(passages) - 1}})
 	}
-	boltdata := BoltData{Bucket: works, Data: boltworks, Catalog: sortedcatalog}
+	boltdata := models.CiteData{Bucket: works, Data: boltworks, Catalog: sortedcatalog}
 
 	// write to database
 	pwd, _ := os.Getwd()

@@ -10,3 +10,13 @@ type CiteData struct {
 	Data    []gocite.Work
 	Catalog []Catalog
 }
+
+/* from github.com/ThomasK81/gocite
+// Work is a container for CTS passages that belong to the same work
+type Work struct {
+	WorkID      string
+	Passages    []Passage
+	Ordered     bool
+	First, Last PassLoc
+}
+*/
