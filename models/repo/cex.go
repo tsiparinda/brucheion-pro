@@ -116,9 +116,9 @@ func loadCEX(data string, user string) error {
 		}
 		switch {
 		case len(line) == 2:
-			texturns = append(texturns, line[0])
+			texturns = append(texturns, line[0]) // urn:cts:sktlit:skt0001.nyaya002.J1D:3.1.1
 			text = append(text, line[1])
-		case len(line) > 2:
+		case len(line) > 2: // join all fields after 0 to 1
 			texturns = append(texturns, line[0])
 			var textstring string
 			for j := 1; j < len(line); j++ {
@@ -130,12 +130,12 @@ func loadCEX(data string, user string) error {
 		}
 	}
 
-	works := append([]string(nil), texturns...)
+	works := append([]string(nil), texturns...) // urn:cts:sktlit:skt0001.nyaya002 - only 5 fields, unque
 	for i := range texturns {
 		works[i] = strings.Join(strings.Split(texturns[i], ":")[0:4], ":") + ":"
 	}
 	works = moving.RemoveDuplicatesUnordered(works)
-	var boltworks []gocite.Work
+	var boltworks []gocite.Work          // passages for URN
 	var sortedcatalog []models.Catalog
 	for i := range works {
 		work := works[i]
