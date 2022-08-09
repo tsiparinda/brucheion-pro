@@ -130,20 +130,20 @@ func loadCEX(data string, user string) error {
 		}
 	}
 
-	works := append([]string(nil), texturns...) // urn:cts:sktlit:skt0001.nyaya002 - only 5 fields, unque
+	works := append([]string(nil), texturns...) // urn:cts:sktlit:skt0001.nyaya002 - only 5 (4?) fields, unque
 	for i := range texturns {
 		works[i] = strings.Join(strings.Split(texturns[i], ":")[0:4], ":") + ":"
 	}
 	works = moving.RemoveDuplicatesUnordered(works)
-	var boltworks []gocite.Work          // passages for URN
+	var boltworks []gocite.Work // passages for URN
 	var sortedcatalog []models.Catalog
 	for i := range works {
 		work := works[i]
 		testexist := false
 		for j := range catalog {
 			if catalog[j].URN == work {
-				sortedcatalog = append(sortedcatalog, catalog[j])
-				testexist = true
+				sortedcatalog = append(sortedcatalog, catalog[j]) // ordered catalog
+				testexist = true                                  // and check if cts data exists
 			}
 		}
 		if testexist == false {
@@ -192,31 +192,32 @@ func loadCEX(data string, user string) error {
 		boltworks = append(boltworks, workToBeSaved)*/
 		boltworks = append(boltworks, gocite.Work{WorkID: work, Passages: passages, Ordered: true, First: gocite.PassLoc{Exists: true, PassageID: passages[0].PassageID, Index: 0}, Last: gocite.PassLoc{Exists: true, PassageID: passages[len(passages)-1].PassageID, Index: len(passages) - 1}})
 	}
-	boltdata := models.CiteData{Bucket: works, Data: boltworks, Catalog: sortedcatalog}
+	citedata := models.CiteData{Bucket: works, Data: boltworks, Catalog: sortedcatalog}
+	// urn:cts:sktlit:skt0001.nyaya002 = BUCKET
+	// urn:cts:sktlit:skt0001.nyaya002.J1D:3.1.1 =
+	// ???
 
 	// write to database
 	pwd, _ := os.Getwd()
 	dbname := pwd + "/" + user + ".db"
-	db, err := openBoltDB(dbname) //open bolt DB using helper function
+	db, err := moving.OpenBoltDB(dbname) //open bolt DB using helper function
 	if err != nil {
 		log.Println(fmt.Printf("handleCEXLoad: error opening userDB for writing: %s", err))
 		return err
 	}
 	defer db.Close()
-	for i := range boltdata.Bucket {
-		newbucket := boltdata.Bucket[i]
-		/// new stuff
-		//Saving the CTS Catalog data
-		newcatkey := boltdata.Bucket[i]
-		newcatnode, _ := json.Marshal(boltdata.Catalog[i])
+	for i := range citedata.Bucket {
+		newbucket := citedata.Bucket[i]
+		newcatkey := citedata.Bucket[i]
+		newcatvalue, _ := json.Marshal(citedata.Catalog[i])
 		catkey := []byte(newcatkey)
-		catvalue := []byte(newcatnode)
+		catvalue := []byte(newcatvalue)
 		err = db.Update(func(tx *bolt.Tx) error {
-			bucket, err := tx.CreateBucketIfNotExists([]byte(newbucket))
+			bucket, err := tx.CreateBucketIfNotExists([]byte(newbucket)) /// new stuff
 			if err != nil {
 				return err
 			}
-			return bucket.Put(catkey, catvalue)
+			return bucket.Put(catkey, catvalue) //Saving the CTS Catalog data
 		})
 
 		if err != nil {
@@ -225,9 +226,9 @@ func loadCEX(data string, user string) error {
 		/// end stuff
 
 		//saving the individual passages
-		for j := range boltdata.Data[i].Passages {
-			newkey := boltdata.Data[i].Passages[j].PassageID
-			newnode, _ := json.Marshal(boltdata.Data[i].Passages[j])
+		for j := range citedata.Data[i].Passages {
+			newkey := citedata.Data[i].Passages[j].PassageID
+			newnode, _ := json.Marshal(citedata.Data[i].Passages[j])
 			key := []byte(newkey)
 			value := []byte(newnode)
 			// store some data

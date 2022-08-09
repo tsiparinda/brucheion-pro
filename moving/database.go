@@ -61,7 +61,7 @@ func gobDecodePassage(data []byte) (gocite.Passage, error) {
 }
 
 //openBoltDB returns an opened Bolt Database for given dbName.
-func openBoltDB(dbName string) (*bolt.DB, error) {
+func OpenBoltDB(dbName string) (*bolt.DB, error) {
 	db, err := bolt.Open(dbName, 0600, &bolt.Options{Timeout: 30 * time.Second}) //open DB with - wr- --- ---
 	if err != nil {
 		return nil, err
@@ -76,7 +76,7 @@ func Buckets(dbname string) []string {
 		log.Println(err)
 		return result
 	}
-	db, err := openBoltDB(dbname) //open bolt DB using helper function
+	db, err := OpenBoltDB(dbname) //open bolt DB using helper function
 	if err != nil {
 		log.Println(fmt.Printf("Buckets: error opening userDB: %s", err))
 		return result
