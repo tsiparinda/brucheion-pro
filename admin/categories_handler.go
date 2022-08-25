@@ -1,10 +1,10 @@
 package admin
 
 import (
-    "sportsstore/models"
-	"platform/http/actionresults"
-    "platform/http/handling"
-    "platform/sessions"
+    "brucheion/models"
+	"github.com/vedicsociety/platform/http/actionresults"
+    "github.com/vedicsociety/platform/http/handling"
+    "github.com/vedicsociety/platform/sessions"
 )
 
 type CategoriesHandler struct {

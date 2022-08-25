@@ -3,8 +3,8 @@ package store
 import (
 	"brucheion/models"
 
-	"github.com/tsiparinda/platform/http/actionresults"
-	"github.com/tsiparinda/platform/http/handling"
+	"github.com/vedicsociety/platform/http/actionresults"
+	"github.com/vedicsociety/platform/http/handling"
 )
 
 type CategoryHandler struct {

@@ -4,7 +4,7 @@ import (
 	"brucheion/models"
 	"math"
 
-	"github.com/tsiparinda/platform/services"
+	"github.com/vedicsociety/platform/services"
 )
 
 func RegisterMemoryRepoService() {

@@ -14,7 +14,7 @@ import (
 	"brucheion/admin/auth"
 	"brucheion/store"
 
-	"github.com/tsiparinda/platform/http/handling"
+	"github.com/vedicsociety/platform/http/handling"
 	"github.com/vedicsociety/platform/authorization"
 	"github.com/vedicsociety/platform/pipeline"
 	"github.com/vedicsociety/platform/pipeline/basic"

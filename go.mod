@@ -8,4 +8,10 @@ require (
 	github.com/tsiparinda/platform v1.1.2
 )
 
-require golang.org/x/sys v0.0.0-20220818161305-2296e01440c6 // indirect
+require (
+	github.com/golang-migrate/migrate/v4 v4.15.2 // indirect
+	github.com/hashicorp/errwrap v1.1.0 // indirect
+	github.com/hashicorp/go-multierror v1.1.1 // indirect
+	go.uber.org/atomic v1.7.0 // indirect
+	golang.org/x/sys v0.0.0-20220818161305-2296e01440c6 // indirect
+)

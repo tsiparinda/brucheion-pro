@@ -1,9 +1,9 @@
 package admin
 
 import (
-	"platform/authorization/identity"
-	"platform/http/actionresults"
-    "platform/http/handling"
+	"github.com/vedicsociety/platform/authorization/identity"
+	"github.com/vedicsociety/platform/http/actionresults"
+    "github.com/vedicsociety/platform/http/handling"
 )
 
 type SignOutHandler struct {

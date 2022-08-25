@@ -1,9 +1,9 @@
 package admin
 
 import (
-	"platform/http/actionresults"
-	"platform/http/handling"
-	"sportsstore/models"
+	"github.com/vedicsociety/platform/http/actionresults"
+	"github.com/vedicsociety/platform/http/handling"
+	"brucheion/models"
 )
 
 type OrdersHandler struct {
