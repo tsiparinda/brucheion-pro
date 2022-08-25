@@ -12,5 +12,31 @@
     "sessions": {
         "key": "MY_SESSION_KEY",
         "cyclekey": true
-    }
+    },
+    "main": {
+        "message": "Hello from Brucheion's config!"
+            },
+    "authorization": {
+                "failUrl": "/signin"
+            },
+    "http": {
+                "enableHttp": true,
+                "enableHttps": false,
+                "httpsPort": 5500,
+                "httpsCert": "certificate.cer",
+                "httpsKey": "certificate.key"
+            },
+    "sql": {
+                "driver_name": "postgres",
+                "connection_str": "host=192.168.18.1 port=5432 user=postgres password=postgres dbname=brucheion sslmode=disable",
+                "connection_url": "postgres://postgres:postgres@192.168.18.1:5432/brucheion?sslmode=disable",
+                "migrations_path": "file://./sql/migrations",
+                "dbname": "brucheion",
+                "always_reset": true,
+                "commands": {
+                    "GetBoltCatalog": "sql/get_boltcatalog.sql",
+                    "SaveBoltData": "sql/pg_save_boltdata.sql",
+                    "CreateBucketIfNotExists": "sql/pg_newbucket.sql"
+                    }
+            }
 }

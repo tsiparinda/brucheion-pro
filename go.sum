@@ -1,4 +1,8 @@
-github.com/gorilla/securecookie v1.1.1 h1:miw7JPhV+b/lAHSXz4qd/nN9jRiAFV5FwjeKyCS8BvQ=
-github.com/gorilla/securecookie v1.1.1/go.mod h1:ra0sb63/xPlUeL+yeDciTfxMRAA+MP+HVt/4epWDjd4=
-github.com/gorilla/sessions v1.2.1 h1:DHd3rPN5lE3Ts3D8rKkQ8x/0kqfeNmBAaiSi+o7FsgI=
-github.com/gorilla/sessions v1.2.1/go.mod h1:dk2InVEVJ0sfLlnXv9EAgkf6ecYs/i80K/zI+bUmuGM=
+github.com/ThomasK81/gocite v0.0.0-20200703112544-785f5b9bd278 h1:BKOanFOC9hCpw5KmHiJOvNpyEM0uHY5HVpNz0NLufks=
+github.com/ThomasK81/gocite v0.0.0-20200703112544-785f5b9bd278/go.mod h1:Y0KrHgz5VG09rUAQ5ZOYNTu++VqEgUS3i15Q82Kmkv4=
+github.com/boltdb/bolt v1.3.1 h1:JQmyP4ZBrce+ZQu0dY660FMfatumYDLun9hBCUVIkF4=
+github.com/boltdb/bolt v1.3.1/go.mod h1:clJnj/oiGkjum5o1McbSZDSLxVThjynRyGBgiAx27Ps=
+github.com/tsiparinda/platform v1.1.2 h1:MK2olVJhTqP7oWWaTH69tqVSnudu0OYDjc/KxdcWYE4=
+github.com/tsiparinda/platform v1.1.2/go.mod h1:W+iEx8oT9Nyb8iWGDg6kOLcQ0KdK270OqFFnwdSLErA=
+golang.org/x/sys v0.0.0-20220818161305-2296e01440c6 h1:Sx/u41w+OwrInGdEckYmEuU5gHoGSL4QbDz3S9s6j4U=
+golang.org/x/sys v0.0.0-20220818161305-2296e01440c6/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=

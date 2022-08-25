@@ -1,0 +1,1 @@
+select id, user_id, bucket, (each(boltdb)).key, (each(boltdb)).value FROM citedata ;

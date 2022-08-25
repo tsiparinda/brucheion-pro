@@ -1,20 +1,29 @@
 package models
 
 type Repository interface {
-	GetTranscription(CTSURN string) Transcription
 
-	GetTranscriptions() []Transcription
-
-	GetCatalog(URN string) Catalog
-
-	GetCatalogs(URN string) Catalog
+	// GetProduct(id int) Product
+	// GetProducts() []Product
+	// SaveProduct(*Product)
 
 	// GetProductPage(page, pageSize int) (products []Product, totalAvailable int)
 
 	// GetProductPageCategory(categoryId int, page, pageSize int) (products []Product,
-	// 	totalAvailable int)
+	//     totalAvailable int)
 
 	// GetCategories() []Category
+	// SaveCategory(*Category)
 
-	Seed()
+	// GetOrder(id int) Order
+	// GetOrders() []Order
+	// SaveOrder(*Order)
+	// SetOrderShipped(*Order)
+	//SaveCEX(*BoltData)
+	//GetBoltData() []BoltData
+	// Seed()
+	// Init()
+	SaveBoltData(*BoltData)
+	CreateBucketIfNotExists(bucket string)
+	GetBoltCatalog() []BoltCatalog
+	LoadMigrations()
 }

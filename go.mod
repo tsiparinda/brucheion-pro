@@ -1,12 +1,11 @@
-module brucheion-pro
+module brucheion
 
 go 1.18
 
-require platform v1.0.0
-
 require (
-	github.com/gorilla/securecookie v1.1.1 // indirect
-	github.com/gorilla/sessions v1.2.1 // indirect
+	github.com/ThomasK81/gocite v0.0.0-20200703112544-785f5b9bd278
+	github.com/boltdb/bolt v1.3.1
+	github.com/tsiparinda/platform v1.1.2
 )
 
-replace platform v1.0.0 => ../platform
+require golang.org/x/sys v0.0.0-20220818161305-2296e01440c6 // indirect
