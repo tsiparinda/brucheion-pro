@@ -5,11 +5,15 @@ go 1.18
 require (
 	github.com/ThomasK81/gocite v0.0.0-20200703112544-785f5b9bd278
 	github.com/boltdb/bolt v1.3.1
+	github.com/golang-migrate/migrate/v4 v4.15.2
+	github.com/lib/pq v1.10.0
 	github.com/tsiparinda/platform v1.1.2
+	github.com/vedicsociety/platform v1.1.5
 )
 
 require (
-	github.com/golang-migrate/migrate/v4 v4.15.2 // indirect
+	github.com/gorilla/securecookie v1.1.1 // indirect
+	github.com/gorilla/sessions v1.2.1 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	go.uber.org/atomic v1.7.0 // indirect
