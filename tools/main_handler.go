@@ -5,7 +5,7 @@ import (
 	"github.com/vedicsociety/platform/http/handling"
 )
 
-var sectionNames = []string{"Passage Overview", "Ingest CEX"}
+var sectionNames = []string{"PassageOverview", "IngestCEX"}
 
 type AdminHandler struct {
 	handling.URLGenerator

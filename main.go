@@ -1,21 +1,18 @@
 package main
 
 import (
-	"brucheion/admin"
-	"brucheion/models"
 	"brucheion/models/repo"
-	"net/http"
 	"sync"
 
-	//"github.com/vedicsociety/platform/http"
-	//"github.com/vedicsociety/platform/http/handling"
-	//"github.com/vedicsociety/platform/http/handling"
+	"github.com/vedicsociety/platform/http"
 
+	"brucheion/admin"
 	"brucheion/admin/auth"
-	"brucheion/store"
 
-	"github.com/vedicsociety/platform/http/handling"
+	//"brucheion/store"
+
 	"github.com/vedicsociety/platform/authorization"
+	"github.com/vedicsociety/platform/http/handling"
 	"github.com/vedicsociety/platform/pipeline"
 	"github.com/vedicsociety/platform/pipeline/basic"
 	"github.com/vedicsociety/platform/services"
@@ -45,16 +42,16 @@ func createPipeline() pipeline.RequestPipeline {
 			"admin",
 			authorization.NewRoleCondition("Administrator"),
 			admin.AdminHandler{},
-			admin.ProductsHandler{},
-			admin.CategoriesHandler{},
-			admin.OrdersHandler{},
+			//admin.ProductsHandler{},
+			//admin.CategoriesHandler{},
+			//admin.OrdersHandler{},
 			admin.DatabaseHandler{},
 			admin.SignOutHandler{},
 		).AddFallback("/admin/section/", "^/admin[/]?$"),
 
 		handling.NewRouter(
-			handling.HandlerEntry{"", store.ProductHandler{}},
-			handling.HandlerEntry{"", store.CategoryHandler{}},
+			//handling.HandlerEntry{"", store.ProductHandler{}},
+			//handling.HandlerEntry{"", store.CategoryHandler{}},
 			//handling.HandlerEntry{"", store.CartHandler{}},
 			//handling.HandlerEntry{"", store.OrderHandler{}},
 			// handling.HandlerEntry{ "admin", admin.AdminHandler{}},
@@ -67,13 +64,13 @@ func createPipeline() pipeline.RequestPipeline {
 			// ).AddMethodAlias("/", store.ProductHandler.GetProducts, 0, 1).
 			//     AddMethodAlias("/products[/]?[A-z0-9]*?",
 			//         store.ProductHandler.GetProducts, 0, 1),    )
-		).AddMethodAlias("/", admin.AdminHandler.GetAdmin))
+		)) //.AddMethodAlias("/", admin.AdminHandler.GetAdmin))
 }
 
 func main() {
 
 	registerServices()
-	services.Call(func(repo models.Repository) { repo.LoadMigrations() })
+	//services.Call(func(repo models.Repository) { repo.LoadMigrations() })
 	//repo.LoadMigrations( config.Configuration,  logging.Logger)
 
 	results, err := services.Call(http.Serve, createPipeline())
