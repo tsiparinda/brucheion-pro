@@ -1,4 +1,4 @@
-package admin
+package tools
 
 import (
 	"brucheion/admin/auth"
@@ -9,31 +9,31 @@ import (
 	"github.com/vedicsociety/platform/services"
 )
 
-type DatabaseHandler struct {
+type PassageOverviewHandler struct {
 	models.Repository
 	handling.URLGenerator
 }
 
-func (handler DatabaseHandler) GetData() actionresults.ActionResult {
-	return actionresults.NewTemplateAction("admin_database.html", struct {
+func (handler PassageOverviewHandler) GetData() actionresults.ActionResult {
+	return actionresults.NewTemplateAction("tools_passageoverview.html", struct {
 		InitUrl, SeedUrl string
 	}{
 		InitUrl: auth.MustGenerateUrl(handler.URLGenerator,
-			DatabaseHandler.PostDatabaseInit),
+			PassageOverviewHandler.PostDatabaseInit),
 		SeedUrl: auth.MustGenerateUrl(handler.URLGenerator,
-			DatabaseHandler.PostDatabaseSeed),
+			PassageOverviewHandler.PostDatabaseSeed),
 	})
 }
 
-func (handler DatabaseHandler) PostDatabaseInit() actionresults.ActionResult {
+func (handler PassageOverviewHandler) PostDatabaseInit() actionresults.ActionResult {
 	//handler.Repository.Init()
 	services.Call(func(repo models.Repository) { repo.LoadMigrations() })
 	return actionresults.NewRedirectAction(auth.MustGenerateUrl(handler.URLGenerator,
-		AdminHandler.GetSection, "Database"))
+		ToolsHandler.GetSection, "PassageOverview"))
 }
 
-func (handler DatabaseHandler) PostDatabaseSeed() actionresults.ActionResult {
+func (handler PassageOverviewHandler) PostDatabaseSeed() actionresults.ActionResult {
 	// handler.Repository.Seed()
 	return actionresults.NewRedirectAction(auth.MustGenerateUrl(handler.URLGenerator,
-		AdminHandler.GetSection, "Database"))
+		ToolsHandler.GetSection, "PassageOverview"))
 }

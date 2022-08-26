@@ -1,4 +1,4 @@
-package admin
+package tools
 
 import (
 	"github.com/vedicsociety/platform/authorization/identity"
@@ -33,7 +33,7 @@ func (handler AuthenticationHandler) PostSignIn(creds Credentials) actionresults
 		if ok {
 			handler.Session.SetValue(SIGNIN_MSG_KEY, "")
 			handler.SignInManager.SignIn(user)
-			return actionresults.NewRedirectAction("/admin/section/")
+			return actionresults.NewRedirectAction("/tools/section/")
 		}
 	}
 	handler.Session.SetValue(SIGNIN_MSG_KEY, "Access Denied")

@@ -8,6 +8,7 @@ import (
 
 	"brucheion/admin"
 	"brucheion/admin/auth"
+	"brucheion/tools"
 
 	//"brucheion/store"
 
@@ -46,8 +47,20 @@ func createPipeline() pipeline.RequestPipeline {
 			//admin.CategoriesHandler{},
 			//admin.OrdersHandler{},
 			admin.DatabaseHandler{},
-			admin.SignOutHandler{},
+			auth.SignOutHandler{},
 		).AddFallback("/admin/section/", "^/admin[/]?$"),
+
+		authorization.NewAuthComponent(
+			"tools",
+			authorization.NewRoleCondition("User"),
+			tools.ToolsHandler{},
+			//admin.ProductsHandler{},
+			//admin.CategoriesHandler{},
+			//admin.OrdersHandler{},
+			tools.PassageOverviewHandler{},
+			//tools.IngestCEXHandler{},
+			//tools.SignOutHandler{},
+		).AddFallback("/tools/section/", "^/tools[/]?$"),
 
 		handling.NewRouter(
 			//handling.HandlerEntry{"", store.ProductHandler{}},
@@ -59,13 +72,14 @@ func createPipeline() pipeline.RequestPipeline {
 			// handling.HandlerEntry{ "admin", admin.CategoriesHandler{}},
 			// handling.HandlerEntry{ "admin", admin.OrdersHandler{}},
 			//handling.HandlerEntry{"admin", admin.DatabaseHandler{}},
-			handling.HandlerEntry{"", admin.AuthenticationHandler{}},
+			handling.HandlerEntry{"", auth.AuthenticationHandler{}},
+			//handling.HandlerEntry{"", tools.AuthenticationHandler{}},
 		//handling.HandlerEntry{"api", store.RestHandler{}},
 		// ).AddMethodAlias("/", store.ProductHandler.GetProducts, 0, 1).
 		//     AddMethodAlias("/products[/]?[A-z0-9]*?",
 		//         store.ProductHandler.GetProducts, 0, 1),    )
-		).AddMethodAlias("/", admin.AdminHandler.GetAdmin))
-	
+		).AddMethodAlias("/", tools.ToolsHandler.GetTools))
+
 }
 
 func main() {
