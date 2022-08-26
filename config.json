@@ -7,11 +7,11 @@
     },
     "templates": {
         "path": "templates/*.html",
-        "reload": true
+        "reload": false
     },
     "sessions": {
         "key": "MY_SESSION_KEY",
-        "cyclekey": true
+        "cyclekey": false
     },
     "main": {
         "message": "Hello from Brucheion's config!"

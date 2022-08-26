@@ -58,13 +58,14 @@ func createPipeline() pipeline.RequestPipeline {
 			// handling.HandlerEntry{ "admin", admin.ProductsHandler{}},
 			// handling.HandlerEntry{ "admin", admin.CategoriesHandler{}},
 			// handling.HandlerEntry{ "admin", admin.OrdersHandler{}},
-			// handling.HandlerEntry{ "admin", admin.DatabaseHandler{}},
+			//handling.HandlerEntry{"admin", admin.DatabaseHandler{}},
 			handling.HandlerEntry{"", admin.AuthenticationHandler{}},
-			//handling.HandlerEntry{"api", store.RestHandler{}},
-			// ).AddMethodAlias("/", store.ProductHandler.GetProducts, 0, 1).
-			//     AddMethodAlias("/products[/]?[A-z0-9]*?",
-			//         store.ProductHandler.GetProducts, 0, 1),    )
-		)) //.AddMethodAlias("/", admin.AdminHandler.GetAdmin))
+		//handling.HandlerEntry{"api", store.RestHandler{}},
+		// ).AddMethodAlias("/", store.ProductHandler.GetProducts, 0, 1).
+		//     AddMethodAlias("/products[/]?[A-z0-9]*?",
+		//         store.ProductHandler.GetProducts, 0, 1),    )
+		).AddMethodAlias("/", admin.AdminHandler.GetAdmin))
+	
 }
 
 func main() {

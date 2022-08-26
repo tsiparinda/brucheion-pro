@@ -3,8 +3,6 @@ package admin
 import (
 	"brucheion/models"
 
-	"github.com/vedicsociety/platform/services"
-
 	"github.com/vedicsociety/platform/http/actionresults"
 	"github.com/vedicsociety/platform/http/handling"
 )
@@ -27,7 +25,7 @@ func (handler DatabaseHandler) GetData() actionresults.ActionResult {
 
 func (handler DatabaseHandler) PostDatabaseInit() actionresults.ActionResult {
 	//handler.Repository.Init()
-	services.Call(func(repo models.Repository) { repo.LoadMigrations() })
+	//services.Call(func(repo models.Repository) { repo.LoadMigrations() })
 	return actionresults.NewRedirectAction(mustGenerateUrl(handler.URLGenerator,
 		AdminHandler.GetSection, "Database"))
 }
