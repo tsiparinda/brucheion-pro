@@ -21,6 +21,7 @@
             },
     "http": {
                 "enableHttp": true,
+                "port": 5100,
                 "enableHttps": false,
                 "httpsPort": 5500,
                 "httpsCert": "certificate.cer",

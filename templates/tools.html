@@ -5,8 +5,55 @@
     <meta name="viewport" content="width=device-width" />
     <title>Brucheion</title>
     <link href="/files/bootstrap.min.css" rel="stylesheet" />
+     {{template "stylesheets"}}
 </head>
 <body> 
+    <nav class="navbar">
+        <div class="container">
+            <div class="navbar-brand">
+                <a class="navbar-item logo">
+                <img src="/files/img/logo-flat.png" alt="Brucheion logo">
+                </a>
+            </div>
+            <div class="navbar-end">
+                <span class="navbar-end navbar-burger burger" data-target="navMenu">
+                <span></span>
+                <span></span>
+                <span></span>
+                </span>
+            </div>
+            <div id="navMenu" class="navbar-menu">
+                <div class="navbar-end">
+                    <div class="navbar-item has-dropdown is-hoverable">
+                            <p class="navbar-link">
+                            Tools
+                            </p>
+                            <div class="navbar-dropdown">
+                            {{ range $context.Sections }}
+                                <a href="{{ call $context.SectionUrlFunc . }}"
+                                    class="navbar-item">{{ . }}</a>
+                            {{ end }}
+                            </div>
+                    </div>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <p class="navbar-link">
+                            <i class="fa fa-lg fa-fw fa-user-circle"></i>
+                            <span class="navbar-item-label">{{ $context.UserName }}</span>
+                        </p>
+                        <div class="navbar-dropdown">
+                            <a href="/export/exported/" class="navbar-item">Download CEX</a>
+                            <a href="#" class="navbar-item">Account Settings</a>
+                            <a href="#" class="navbar-item">Display Settings</a>
+                            <div class="navbar-item">
+                                {{ handler "signout" "getuserwidget" }}
+                            </div> 
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
     <div class="bg-info text-white p-2">
         <div class="container-fluid">
             <div class="row">
@@ -42,6 +89,18 @@
                 {{ handler $context.ActiveSection "getdata" }}
             {{ end }}
         </div>
+        <!-- {{template "footer"}} -->
     </div>
 </body>
+<!-- <script type="text/javascript">
+    (function() {
+      var burger = document.querySelector('.burger')
+      var nav = document.querySelector('#' + burger.dataset.target)
+      burger.addEventListener('click', function() {
+        burger.classList.toggle('is-active')
+        nav.classList.toggle('is-active')
+      })
+    })()
+  </script> -->
 </html>
+

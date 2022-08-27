@@ -1,7 +1,7 @@
 package tools
 
 import (
-	"brucheion/admin/auth"
+	"brucheion/auth"
 	"brucheion/models"
 
 	"github.com/vedicsociety/platform/http/actionresults"
@@ -18,6 +18,7 @@ func (handler PassageOverviewHandler) GetData() actionresults.ActionResult {
 	return actionresults.NewTemplateAction("tools_passageoverview.html", struct {
 		InitUrl, SeedUrl string
 	}{
+
 		InitUrl: auth.MustGenerateUrl(handler.URLGenerator,
 			PassageOverviewHandler.PostDatabaseInit),
 		SeedUrl: auth.MustGenerateUrl(handler.URLGenerator,

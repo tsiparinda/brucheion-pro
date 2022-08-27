@@ -1,7 +1,7 @@
 package admin
 
 import (
-	"brucheion/admin/auth"
+	"brucheion/auth"
 	"brucheion/models"
 
 	"github.com/vedicsociety/platform/http/actionresults"

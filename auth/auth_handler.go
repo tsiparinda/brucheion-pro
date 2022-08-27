@@ -1,4 +1,4 @@
-package tools
+package auth
 
 import (
 	"github.com/vedicsociety/platform/authorization/identity"
@@ -31,13 +31,21 @@ func (handler AuthenticationHandler) PostSignIn(creds Credentials) actionresults
 	if creds.Password == "mysecret" {
 		user, ok := handler.UserStore.GetUserByName(creds.Username)
 		if ok {
-			handler.Session.SetValue(SIGNIN_MSG_KEY, "")
-			handler.SignInManager.SignIn(user)
-			return actionresults.NewRedirectAction("/tools/section/")
+			if user.InRole("ToolsUsers") {
+				handler.Session.SetValue(SIGNIN_MSG_KEY, "")
+				handler.SignInManager.SignIn(user)
+				return actionresults.NewRedirectAction("/tools/section/")
+			}
+			if user.InRole("Administrators") {
+				handler.Session.SetValue(SIGNIN_MSG_KEY, "")
+				handler.SignInManager.SignIn(user)
+				return actionresults.NewRedirectAction("/admin/section/")
+			}
+
 		}
 	}
 	handler.Session.SetValue(SIGNIN_MSG_KEY, "Access Denied")
-	return actionresults.NewRedirectAction(mustGenerateUrl(handler.URLGenerator,
+	return actionresults.NewRedirectAction(MustGenerateUrl(handler.URLGenerator,
 		AuthenticationHandler.GetSignIn))
 }
 
@@ -46,7 +54,7 @@ func (handler AuthenticationHandler) PostSignOut(creds Credentials) actionresult
 	return actionresults.NewRedirectAction("/")
 }
 
-func mustGenerateUrl(gen handling.URLGenerator, target interface{},
+func MustGenerateUrl(gen handling.URLGenerator, target interface{},
 	data ...interface{}) string {
 	url, err := gen.GenerateUrl(target, data...)
 	if err != nil {

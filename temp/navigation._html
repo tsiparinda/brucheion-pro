@@ -1,33 +1,18 @@
 {{define "navigation"}}
-{{ $context := . }}
 <nav class="navbar">
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item logo">
-        <img src="/files/img/logo-flat.png" alt="Brucheion logo">
+        <img src="/static/img/logo-flat.png" alt="Brucheion logo">
       </a>
     </div>
     <div class="navbar-end">
       <span class="navbar-end navbar-burger burger" data-target="navMenu">
-        <!-- <span></span>
         <span></span>
-        <span></span> -->
+        <span></span>
+        <span></span>
       </span>
     </div>
-    <div id="sidebar" class="col-3">               
-      <div class="d-grid gap-2">
-          {{ range $context.Sections }}
-              <a href="{{ call $context.SectionUrlFunc . }}"
-                  {{ if eq . $context.ActiveSection }}
-                      class="btn btn-info">
-                  {{ else }}   
-                      class="btn btn-outline-info">
-                  {{ end }}
-                  {{ . }}
-              </a>
-          {{ end }}
-      </div>
-  </div>
     <div id="navMenu" class="navbar-menu">
       <div class="navbar-end">
         <div class="navbar-item has-dropdown is-hoverable">
@@ -35,10 +20,14 @@
             Tools
           </p>
           <div class="navbar-dropdown">
-            {{ range $context.Sections }}
-              <a href="{{ call $context.SectionUrlFunc . }}"
-                  class="navbar-item">{{ . }}</a>
-            {{ end }}
+            <a href="{{.Host}}/view/{{.Title}}" class="navbar-item">Passage Overview</a>
+            <a href="{{.Host}}/edit2/{{.Title}}" class="navbar-item">Image Citation</a>
+            <a href="{{.Host}}/edit/{{.Title}}" class="navbar-item">Transcribe</a>
+            <a href="{{.Host}}/multicompare/{{.Title}}" class="navbar-item">Multicompare</a>
+            <a href="{{.Host}}/tree/" class="navbar-item">Morpho-syntactic analysis</a>
+            <a href="{{.Host}}/editcat/{{.Title}}" class="navbar-item">Edit Metadata</a>
+            <a href="{{.Host}}/ingest/cex" class="navbar-item">Ingest CEX</a>
+            <a href="{{.Host}}/ingest/image" class="navbar-item">Ingest Image</a>
           </div>
         </div>
         <div class="navbar-item has-dropdown is-hoverable">
@@ -52,9 +41,6 @@
             <a href="#" class="navbar-item">Display Settings</a>
             <a href="{{.Host}}/logout/" class="navbar-item">Logout</a>
           </div>
-          <div class="col-6 navbar-text text-end bg-info text-white p-2">
-            {{ handler "signout" "getuserwidget" }}
-          </div>  
         </div>
       </div>
     </div>

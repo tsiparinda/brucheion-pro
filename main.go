@@ -7,7 +7,7 @@ import (
 	"github.com/vedicsociety/platform/http"
 
 	"brucheion/admin"
-	"brucheion/admin/auth"
+	"brucheion/auth"
 	"brucheion/tools"
 
 	//"brucheion/store"
@@ -41,7 +41,7 @@ func createPipeline() pipeline.RequestPipeline {
 
 		authorization.NewAuthComponent(
 			"admin",
-			authorization.NewRoleCondition("Administrator"),
+			authorization.NewRoleCondition("Administrators"),
 			admin.AdminHandler{},
 			//admin.ProductsHandler{},
 			//admin.CategoriesHandler{},
@@ -52,14 +52,14 @@ func createPipeline() pipeline.RequestPipeline {
 
 		authorization.NewAuthComponent(
 			"tools",
-			authorization.NewRoleCondition("User"),
+			authorization.NewRoleCondition("ToolsUsers"),
 			tools.ToolsHandler{},
 			//admin.ProductsHandler{},
 			//admin.CategoriesHandler{},
 			//admin.OrdersHandler{},
 			tools.PassageOverviewHandler{},
 			//tools.IngestCEXHandler{},
-			//tools.SignOutHandler{},
+			auth.SignOutHandler{},
 		).AddFallback("/tools/section/", "^/tools[/]?$"),
 
 		handling.NewRouter(
@@ -79,6 +79,7 @@ func createPipeline() pipeline.RequestPipeline {
 		//     AddMethodAlias("/products[/]?[A-z0-9]*?",
 		//         store.ProductHandler.GetProducts, 0, 1),    )
 		).AddMethodAlias("/", tools.ToolsHandler.GetTools))
+	// AddMethodAlias("/admin", admin.AdminHandler.GetAdmin)
 
 }
 
