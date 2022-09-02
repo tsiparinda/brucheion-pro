@@ -3,11 +3,10 @@ module brucheion
 go 1.18
 
 require (
-	github.com/ThomasK81/gocite v0.0.0-20200703112544-785f5b9bd278
+	github.com/ThomasK81/gocite v0.0.0-20190524090057-fb657bdec753
 	github.com/boltdb/bolt v1.3.1
 	github.com/golang-migrate/migrate/v4 v4.15.2
 	github.com/lib/pq v1.10.0
-
 	github.com/vedicsociety/platform v1.1.5
 )
 

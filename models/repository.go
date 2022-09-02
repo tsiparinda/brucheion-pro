@@ -22,6 +22,11 @@ type Repository interface {
 	//GetBoltData() []BoltData
 	// Seed()
 	// Init()
+	SelectUserBucketDict(userid int, urn string) []BucketDict
+	SelectUserBuckets(userid int) []string
+	SelectUserBucketKeyValue(userid int, urn string, key string) (BoltJSON, error)
+	GetPassage(userid int, urn string) []Passage
+	//BoltRetrieve(userid int, urn string, key string)
 	SaveBoltData(*BoltData)
 	CreateBucketIfNotExists(bucket string)
 	GetBoltCatalog() []BoltCatalog

@@ -16,9 +16,9 @@ type PassageOverviewHandler struct {
 
 func (handler PassageOverviewHandler) GetData() actionresults.ActionResult {
 	return actionresults.NewTemplateAction("tools_passageoverview.html", struct {
-		InitUrl, SeedUrl string
+		urn, InitUrl, SeedUrl string
 	}{
-
+		urn: "urn:cts:sktlit:skt0001.nyaya002.J1D:3.1.1",
 		InitUrl: auth.MustGenerateUrl(handler.URLGenerator,
 			PassageOverviewHandler.PostDatabaseInit),
 		SeedUrl: auth.MustGenerateUrl(handler.URLGenerator,

@@ -32,9 +32,6 @@ func openDB(config config.Configuration, logger logging.Logger) (db *sql.DB,
 		logger.Panic("Error converting SQL URL connection from config to connection string")
 	}
 	logger.Infof("Connection string: ", connectionStr)
-	// if _, err := os.Stat(connectionStr); os.IsNotExist(err) {
-	// 	needInit = true
-	// }
 
 	if db, err = sql.Open(driver, connectionStr); err == nil {
 		logger.Debugf("openDB.db: ", db)
@@ -81,6 +78,34 @@ func prepareCommand(db *sql.DB, command string, config config.Configuration,
 	return statement
 }
 
+// run in RegisterSqlRepositoryService
+func loadMigrations(config config.Configuration, logger logging.Logger) {
+
+	migrations_path := config.GetStringDefault("sql:migrations_path", "file://./sql/migrations")
+
+	connectionUrl, _ := config.GetString("sql:connection_url")
+	logger.Debugf("migrate input: ", connectionUrl, migrations_path)
+	if m, err := migrate.New(migrations_path, connectionUrl); err == nil {
+
+		logger.Debugf("migrate: ", m, err)
+
+		if config.GetBoolDefault("sql:always_reset", true) {
+			m.Down()
+		}
+
+		m.Up() // or m.Step(2) if you want to explicitly set the number of migrations to run
+
+	} else {
+		logger.Debugf("Error migrate:  ", err)
+	}
+	//return err
+
+	return
+}
+
+// for use for start from service
+// //services.Call(func(repo models.Repository) { repo.LoadMigrations() })
+// doesn't work as needed, because starts after load sql-queryes
 func (repo *SqlRepository) LoadMigrations() {
 
 	migrations_path := repo.Configuration.GetStringDefault("sql:migrations_path", "file://./sql/migrations")

@@ -19,6 +19,10 @@ type SqlRepository struct {
 type SqlCommands struct {
 	// Init,
 	// Seed,
+	SelectUserBucketDict,
+	SelectUserBuckets,
+	SelectUserBucketKeyValue,
+	GetPassage,
 	GetBoltCatalog,
 	SaveBoltData,
 	CreateBucketIfNotExists *sql.Stmt

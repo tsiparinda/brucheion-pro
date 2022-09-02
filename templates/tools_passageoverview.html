@@ -1,12 +1,21 @@
-{{ $context := . }}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<form method="POST">
-    <button class="btn btn-danger m-3 p-2" type="submit" 
-            formaction="{{ $context.InitUrl}}">
-        Initialize Database
-    </button>
-    <button class="btn btn-warning m-3 p-2" type="submit" 
-            formaction="{{ $context.SeedUrl}}">
-        Passage Overview
-    </button>
-</form>
+    <title>Brucheion</title>
+
+    {{template "stylesheets"}}
+    <link rel="stylesheet" href="/files/app/dist/bundle.css" />
+   
+  </head>
+  <body class="has-hero full-height">
+ 
+    <div id="app"></div>
+    <script src="/files/app/dist/bundle.js"></script>
+  </body>
+</html>
+

@@ -6,93 +6,66 @@
     <title>Brucheion</title>
     <link href="/files/bootstrap.min.css" rel="stylesheet" />
      {{template "stylesheets"}}
+     <link rel="stylesheet" type="text/css" href="/files/static/css/view.css" />
 </head>
-<body> 
+<body class="has-hero full-height"> 
     <nav class="navbar">
-        <div class="container">
-            <div class="navbar-brand">
-                <a class="navbar-item logo">
-                <img src="/files/img/logo-flat.png" alt="Brucheion logo">
-                </a>
-            </div>
-            <div class="navbar-end">
-                <span class="navbar-end navbar-burger burger" data-target="navMenu">
-                <span></span>
-                <span></span>
-                <span></span>
-                </span>
-            </div>
-            <div id="navMenu" class="navbar-menu">
+        <div class="container-fluid">
+                <div class="navbar-brand">
+                    <a class="navbar-item logo">
+                        <img src="/files/img/logo-flat.png" alt="Brucheion logo">
+                    </a>
+                </div>
                 <div class="navbar-end">
-                    <div class="navbar-item has-dropdown is-hoverable">
+                    <span class="navbar-end navbar-burger burger" data-target="navMenu">
+                    </span>
+                </div>
+                <div id="navMenu" class="navbar-menu">
+                    <div class="navbar-end">
+                        <div class="navbar-item has-dropdown is-hoverable">
+                                <p class="navbar-link">
+                                    Tools
+                                </p>
+                                <div class="navbar-dropdown">
+                                {{ range $context.Sections }}
+                                    <a href="{{ call $context.SectionUrlFunc . }}"
+                                        class="navbar-item">{{ . }}</a>
+                                {{ end }}
+                                </div>
+                        </div>
+                        <div class="navbar-item has-dropdown is-hoverable">
                             <p class="navbar-link">
-                            Tools
+                                <i class="fa fa-lg fa-fw fa-user-circle"></i>
+                                <span class="navbar-item-label">{{ $context.UserName }}</span>
                             </p>
                             <div class="navbar-dropdown">
-                            {{ range $context.Sections }}
-                                <a href="{{ call $context.SectionUrlFunc . }}"
-                                    class="navbar-item">{{ . }}</a>
-                            {{ end }}
+                                <a href="/export/exported/" class="navbar-item">Download CEX</a>
+                                <a href="#" class="navbar-item">Account Settings</a>
+                                <a href="#" class="navbar-item">Display Settings</a>
+                                <div class="navbar-item">
+                                    {{ handler "signout" "getuserwidget" }}
+                                </div> 
                             </div>
-                    </div>
-                    <div class="navbar-item has-dropdown is-hoverable">
-                        <p class="navbar-link">
-                            <i class="fa fa-lg fa-fw fa-user-circle"></i>
-                            <span class="navbar-item-label">{{ $context.UserName }}</span>
-                        </p>
-                        <div class="navbar-dropdown">
-                            <a href="/export/exported/" class="navbar-item">Download CEX</a>
-                            <a href="#" class="navbar-item">Account Settings</a>
-                            <a href="#" class="navbar-item">Display Settings</a>
-                            <div class="navbar-item">
-                                {{ handler "signout" "getuserwidget" }}
-                            </div> 
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     </nav>
 
-    <div class="bg-info text-white p-2">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col navbar-brand">Brucheion Tools</div>
-                <div class="col-6 navbar-text text-end">
-                    {{ handler "signout" "getuserwidget" }}
-                </div>                                
-            </div>
-        </div>
+
+    <div>
+        {{ if eq $context.ActiveSection ""}}
+            <h6 class="p-2">
+                Welcome to the Brucheion Tools Features
+            </h6>
+        {{ else }}
+            {{ handler $context.ActiveSection "getdata" }}
+        {{ end }}
     </div>
-    
-    <div class="row m-1 p-1">
-        <div id="sidebar" class="col-3">               
-            <div class="d-grid gap-2">
-                {{ range $context.Sections }}
-                    <a href="{{ call $context.SectionUrlFunc . }}"
-                        {{ if eq . $context.ActiveSection }}
-                            class="btn btn-info">
-                        {{ else }}   
-                            class="btn btn-outline-info">
-                        {{ end }}
-                        {{ . }}
-                    </a>
-                {{ end }}
-            </div>
-        </div>
-        <div class="col-9">
-            {{ if eq $context.ActiveSection ""}}
-                <h6 class="p-2">
-                    Welcome to the Brucheion Tools Features
-                </h6>
-            {{ else }}
-                {{ handler $context.ActiveSection "getdata" }}
-            {{ end }}
-        </div>
-        <!-- {{template "footer"}} -->
-    </div>
+
 </body>
-<!-- <script type="text/javascript">
+
+<script type="text/javascript">
     (function() {
       var burger = document.querySelector('.burger')
       var nav = document.querySelector('#' + burger.dataset.target)
@@ -101,6 +74,7 @@
         nav.classList.toggle('is-active')
       })
     })()
-  </script> -->
+  </script>
+  
 </html>
 

@@ -35,9 +35,13 @@
                 "dbname": "brucheion",
                 "always_reset": true,
                 "commands": {
-                    "GetBoltCatalog": "sql/get_boltcatalog.sql",
-                    "SaveBoltData": "sql/pg_save_boltdata.sql",
-                    "CreateBucketIfNotExists": "sql/pg_newbucket.sql"
+                    "SelectUserBucketDict": "sql/pg_sel_userbucketdict.sql", 
+                    "SelectUserBuckets": "sql/pg_sel_userbuckets.sql",
+                    "SelectUserBucketKeyValue": "sql/pg_sel_userbucketkeyvalue.sql",
+                    "GetBoltCatalog": "sql/pg_sel_boltcatalog.sql",
+                    "GetPassage": "sql/pg_sel_passage.sql",
+                    "SaveBoltData": "sql/pg_upd_boltdata.sql",
+                    "CreateBucketIfNotExists": "sql/pg_ins_bucket.sql"
                     }
             }
 }

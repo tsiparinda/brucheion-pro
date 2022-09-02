@@ -1,0 +1,1 @@
+select bucket FROM citedata where user_id=($1);

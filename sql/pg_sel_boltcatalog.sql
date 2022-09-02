@@ -1,0 +1,1 @@
+select id, user_id, bucket, (each(dict)).key, (each(dict)).value FROM citedata ;

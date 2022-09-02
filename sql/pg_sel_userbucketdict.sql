@@ -1,0 +1,1 @@
+select (each(dict)).key, (each(dict)).value FROM citedata where user_id=($1) and bucket=($2);
