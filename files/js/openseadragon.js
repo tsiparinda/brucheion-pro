@@ -1947,7 +1947,7 @@ if (typeof define === 'function' && define.amd) {
          * @function
          * @param {Event} [event]
          */
- 90       stopEvent: function( event ) {
+           stopEvent: function( event ) {
             event = $.getEvent( event );
 
             if ( event.stopPropagation ) {
@@ -2242,7 +2242,7 @@ if (typeof define === 'function' && define.amd) {
             }
 
             if ( options.scriptCharset ) {
- 90               script.charset = options.scriptCharset;
+                script.charset = options.scriptCharset;
             }
 
             script.src = url;

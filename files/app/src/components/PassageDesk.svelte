@@ -1,7 +1,8 @@
 <script>
   import { onMount } from 'svelte'
+  // import { Link, navigate } from 'svelte-routing'
   import { Link, navigate } from 'svelte-routing'
-  import OpenSeadragon from 'openseadragon'
+  import OpenSeadragon from '../lib/openseadragon/openseadragon'
   import { getInternalOpts } from '../lib/osd'
   import ResizeBar from './ResizeBar.svelte'
 

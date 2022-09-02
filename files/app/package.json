@@ -15,7 +15,6 @@
     "content-type": "^1.0.4",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.13",
-    "openseadragon": "^2.4.2",
     "prettier": "^2.1.1",
     "prettier-plugin-svelte": "^1.1.1",
     "qs": "^6.9.4",
