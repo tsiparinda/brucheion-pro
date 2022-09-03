@@ -22,6 +22,14 @@
   // FIXME: this is a pretty naive attempt to catch the passage ID
   $: passageId = passage.id.split(':').pop()
 
+  async function getPassage(urn) {
+    // const res = await fetch(`/api/v1/passage/${urn}`)
+    const res = await fetch(`/api/v1/passage/undefined`)
+    //const res = await fetch(`/api/v1/passage/?urn=urn:cts:sktlit:skt0001.nyaya002.J1D:3.1.1`)
+    const d = await res.json()
+    return d.data
+  }
+
   function createViewer(opts) {
     const { tileSources, ...otherOpts } = opts
     previewViewer = OpenSeadragon(otherOpts)
@@ -55,7 +63,7 @@
   }
 
   function handleWitnessSelection() {
-    navigate(`/view/${selectedCatalogUrn}${passageId}`)
+    navigate(`/passage/${selectedCatalogUrn}${passageId}`)
   }
 
   function handleToggleMetadata() {
@@ -258,10 +266,13 @@
     </li>
 
     <li class="pl">
-      <Link to={`/view/${passage.previousPassage}`}>← Previous Passage</Link>
+      <Link to={`/tools/section/passageoverview/${passage.previousPassage}`}>
+        ← Previous Passage
+      </Link>
     </li>
     <li class="bl">
-      <Link to={`/view/${passage.nextPassage}`}>Next Passage →</Link>
+      {getPassage(passageId)}
+      <!-- <Link to={`/tools/section/passageoverview/${passage.nextPassage}`}>Next Passage →</Link> -->
     </li>
 
     <li>
@@ -286,7 +297,7 @@
     </li>
 
     <li class="pl">
-      <a href="#" on:click|preventDefault={handleToggleMetadata}>
+      <a href="#top" on:click|preventDefault={handleToggleMetadata}>
         {#if showMetadata}Hide{:else}Show{/if}
         Metadata
       </a>

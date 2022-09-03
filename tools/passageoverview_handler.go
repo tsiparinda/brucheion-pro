@@ -15,15 +15,16 @@ type PassageOverviewHandler struct {
 }
 
 func (handler PassageOverviewHandler) GetData() actionresults.ActionResult {
-	return actionresults.NewTemplateAction("tools_passageoverview.html", struct {
-		urn, InitUrl, SeedUrl string
-	}{
-		urn: "urn:cts:sktlit:skt0001.nyaya002.J1D:3.1.1",
-		InitUrl: auth.MustGenerateUrl(handler.URLGenerator,
-			PassageOverviewHandler.PostDatabaseInit),
-		SeedUrl: auth.MustGenerateUrl(handler.URLGenerator,
-			PassageOverviewHandler.PostDatabaseSeed),
-	})
+	return actionresults.NewTemplateAction("tools_passageoverview.html",
+		struct {
+			Urn, InitUrl, SeedUrl string
+		}{
+			Urn: "undef",
+			InitUrl: auth.MustGenerateUrl(handler.URLGenerator,
+				PassageOverviewHandler.PostDatabaseInit),
+			SeedUrl: auth.MustGenerateUrl(handler.URLGenerator,
+				PassageOverviewHandler.PostDatabaseSeed),
+		})
 }
 
 func (handler PassageOverviewHandler) PostDatabaseInit() actionresults.ActionResult {
