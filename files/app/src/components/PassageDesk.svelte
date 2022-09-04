@@ -1,12 +1,20 @@
 <script>
   import { onMount } from 'svelte'
-  // import { Link, navigate } from 'svelte-routing'
   import { Link, navigate } from 'svelte-routing'
   import OpenSeadragon from '../lib/openseadragon/openseadragon'
   import { getInternalOpts } from '../lib/osd'
   import ResizeBar from './ResizeBar.svelte'
 
   export let passage
+
+  //   onMount(async () => {
+  //   const res = await fetch(`/api/v1/passage/undefined`);
+  //   passage = await res.json();
+  //   res = await fetch(`/api/v1/user`)
+  //   user = await res.json()
+  //   urn = passage.id
+  //   console.log("urn:"+ urn);
+  // });
 
   let previewViewer = undefined,
     viewerOpts = undefined,
@@ -17,14 +25,22 @@
     selectedCatalogUrn = passage.catalog.urn,
     showMetadata = false,
     previewContainer = undefined,
-    previewHeight = 350
+    previewHeight = 350,
+    urn,
+    err
 
   // FIXME: this is a pretty naive attempt to catch the passage ID
   $: passageId = passage.id.split(':').pop()
 
+  $: Promise.all([getPassage(urn)])
+    .then(([p]) => {
+      passage = p
+    })
+    .catch((e) => (err = e))
+
   async function getPassage(urn) {
-    // const res = await fetch(`/api/v1/passage/${urn}`)
-    const res = await fetch(`/api/v1/passage/undefined`)
+    const res = await fetch(`/api/v1/passage/${urn}`)
+    //const res = await fetch(`/api/v1/passage/undefined`)
     //const res = await fetch(`/api/v1/passage/?urn=urn:cts:sktlit:skt0001.nyaya002.J1D:3.1.1`)
     const d = await res.json()
     return d.data
@@ -63,7 +79,8 @@
   }
 
   function handleWitnessSelection() {
-    navigate(`/passage/${selectedCatalogUrn}${passageId}`)
+    urn = selectedCatalogUrn //+ {passageId}
+    //navigate(`/PassageOverview/${selectedCatalogUrn}${passageId}`)
   }
 
   function handleToggleMetadata() {
@@ -84,6 +101,13 @@
 
   function handleResize(e) {
     previewHeight = e.detail.y - previewContainer.offsetTop
+  }
+
+  function handleNextPassage() {
+    urn = passage.nextPassage
+  }
+  function handlePreviousPassage() {
+    urn = passage.previousPassage
   }
 </script>
 
@@ -254,7 +278,7 @@
       <div class="select">
         <select
           bind:value={selectedCatalogUrn}
-          on:blur={handleWitnessSelection}>
+          on:click={handleWitnessSelection}>
           {#each passage.textRefs as ref}
             <option value={ref}>{ref}</option>
           {/each}
@@ -266,13 +290,14 @@
     </li>
 
     <li class="pl">
-      <Link to={`/tools/section/passageoverview/${passage.previousPassage}`}>
+      <a href="#top" on:click|preventDefault={handlePreviousPassage}>
         ← Previous Passage
-      </Link>
+      </a>
     </li>
-    <li class="bl">
-      {getPassage(passageId)}
-      <!-- <Link to={`/tools/section/passageoverview/${passage.nextPassage}`}>Next Passage →</Link> -->
+    <li class="pl">
+      <a href="#top" on:click|preventDefault={handleNextPassage}>
+        Next Passage →
+      </a>
     </li>
 
     <li>
@@ -348,7 +373,7 @@
             </li>
             <li class="fl">
               <a
-                href="#"
+                href="#top"
                 class="close-pane"
                 on:click|preventDefault={handleHideMetadata}>
                 ×

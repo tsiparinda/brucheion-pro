@@ -1,13 +1,14 @@
 <script>
   import { validateUrn } from '../lib/cts-urn'
   import PassageDesk from '../components/PassageDesk.svelte'
-  import NavigationFix from '../components/NavigationFix.svelte'
+  // import NavigationFix from '../components/NavigationFix.svelte'
 
   export let urn
   let passage, user, err
 
   $: if (!validateUrn(urn, { nid: 'cts' })) {
-    urn = 'urn:cts:sktlit:skt0001.nyaya002.M3D:5.1.1'
+    //urn = 'urn:cts:sktlit:skt0001.nyaya002.M3D:5.1.1'
+    urn = 'undefined'
     //  err = new Error('Passage not found')
   }
 
@@ -19,8 +20,8 @@
     .catch((e) => (err = e))
 
   async function getPassage(urn) {
-    // const res = await fetch(`/api/v1/passage/${urn}`)
-    const res = await fetch(`/api/v1/passage/undefined`)
+    const res = await fetch(`/api/v1/passage/${urn}`)
+    //const res = await fetch(`/api/v1/passage/undefined`)
     //const res = await fetch(`/api/v1/passage/?urn=urn:cts:sktlit:skt0001.nyaya002.J1D:3.1.1`)
     const d = await res.json()
     return d.data

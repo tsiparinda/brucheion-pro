@@ -6,20 +6,23 @@ import (
 
 	"github.com/vedicsociety/platform/http/actionresults"
 	"github.com/vedicsociety/platform/http/handling"
+	"github.com/vedicsociety/platform/logging"
 	"github.com/vedicsociety/platform/services"
 )
 
 type PassageOverviewHandler struct {
 	models.Repository
 	handling.URLGenerator
+	logging.Logger
 }
 
 func (handler PassageOverviewHandler) GetData() actionresults.ActionResult {
+	//handler.Logger.Debugf("PassageOverviewHandler.urn:", urn)
 	return actionresults.NewTemplateAction("tools_passageoverview.html",
 		struct {
 			Urn, InitUrl, SeedUrl string
 		}{
-			Urn: "undef",
+			Urn: "urn",
 			InitUrl: auth.MustGenerateUrl(handler.URLGenerator,
 				PassageOverviewHandler.PostDatabaseInit),
 			SeedUrl: auth.MustGenerateUrl(handler.URLGenerator,
