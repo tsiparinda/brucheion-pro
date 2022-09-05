@@ -1,4 +1,8 @@
 {
+    "system" : {
+        "attention": "DON'T USE UNDERSCOPE SYMBOL (_) IN CONFIG PARAMETER'S NAMES",
+        "prefix": "BR_"
+    },
     "logging" : {
         "level": "debug"
     },
@@ -28,12 +32,12 @@
                 "httpsKey": "certificate.key"
             },
     "sql": {
-                "driver_name": "postgres",
-                "connection_str": "host=192.168.18.1 port=5432 user=postgres password=postgres dbname=brucheion sslmode=disable",
-                "connection_url": "postgres://postgres:postgres@192.168.18.1:5432/brucheion?sslmode=disable",
-                "migrations_path": "file://./sql/migrations",
+                "driverName": "postgres",
+                "connectionStr": "host=192.168.18.1 port=5432 user=postgres password=postgres dbname=brucheion sslmode=disable",
+                "connectionUrl": "postgres://postgres:postgres@192.168.18.1:5432/brucheion?sslmode=disable",
+                "migrationsPath": "file://./sql/migrations",
                 "dbname": "brucheion",
-                "always_reset": true,
+                "alwaysReset": true,
                 "commands": {
                     "SelectUserBucketDict": "sql/pg_sel_userbucketdict.sql", 
                     "SelectUserBuckets": "sql/pg_sel_userbuckets.sql",

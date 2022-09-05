@@ -17,8 +17,8 @@ import (
 func openDB(config config.Configuration, logger logging.Logger) (db *sql.DB,
 	commands *SqlCommands) {
 
-	driver := config.GetStringDefault("sql:driver_name", "postgres")
-	connectionUrl, found := config.GetString("sql:connection_url")
+	driver := config.GetStringDefault("sql:driverName", "postgres")
+	connectionUrl, found := config.GetString("sql:connectionUrl")
 
 	var connectionStr string
 	var err error
@@ -81,15 +81,15 @@ func prepareCommand(db *sql.DB, command string, config config.Configuration,
 // run in RegisterSqlRepositoryService
 func loadMigrations(config config.Configuration, logger logging.Logger) {
 
-	migrations_path := config.GetStringDefault("sql:migrations_path", "file://./sql/migrations")
+	migrations_path := config.GetStringDefault("sql:migrationsPath", "file://./sql/migrations")
 
-	connectionUrl, _ := config.GetString("sql:connection_url")
+	connectionUrl, _ := config.GetString("sql:connectionUrl")
 	logger.Debugf("migrate input: ", connectionUrl, migrations_path)
 	if m, err := migrate.New(migrations_path, connectionUrl); err == nil {
 
 		logger.Debugf("migrate: ", m, err)
 
-		if config.GetBoolDefault("sql:always_reset", true) {
+		if config.GetBoolDefault("sql:alwaysReset", true) {
 			m.Down()
 		}
 
@@ -108,15 +108,15 @@ func loadMigrations(config config.Configuration, logger logging.Logger) {
 // doesn't work as needed, because starts after load sql-queryes
 func (repo *SqlRepository) LoadMigrations() {
 
-	migrations_path := repo.Configuration.GetStringDefault("sql:migrations_path", "file://./sql/migrations")
+	migrations_path := repo.Configuration.GetStringDefault("sql:migrationsPath", "file://./sql/migrations")
 
-	connectionUrl, _ := repo.Configuration.GetString("sql:connection_url")
+	connectionUrl, _ := repo.Configuration.GetString("sql:connectionUrl")
 	repo.Logger.Debugf("migrate input: ", connectionUrl, migrations_path)
 	if m, err := migrate.New(migrations_path, connectionUrl); err == nil {
 
 		repo.Logger.Debugf("migrate: ", m, err)
 
-		if repo.Configuration.GetBoolDefault("sql:always_reset", true) {
+		if repo.Configuration.GetBoolDefault("sql:alwaysReset", true) {
 			m.Down()
 		}
 
