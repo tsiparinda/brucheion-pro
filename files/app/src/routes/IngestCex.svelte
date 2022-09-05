@@ -41,7 +41,7 @@
     let res
     loading = true
     try {
-      res = await fetch('/api/v1/cex/upload', {
+      res = await fetch('/api/v1/cexupload', {
         method: 'POST',
         body: formData,
         redirect: 'error',

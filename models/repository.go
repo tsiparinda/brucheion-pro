@@ -27,8 +27,8 @@ type Repository interface {
 	SelectUserBucketKeyValue(userid int, urn string, key string) (BoltJSON, error)
 	GetPassage(userid int, urn string) []Passage
 	//BoltRetrieve(userid int, urn string, key string)
-	SaveBoltData(*BoltData)
-	CreateBucketIfNotExists(bucket string)
+	SaveBoltData(*BoltData, int)
+	CreateBucketIfNotExists(bucket string, userid int)
 	GetBoltCatalog() []BoltCatalog
 	LoadMigrations()
 }

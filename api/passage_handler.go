@@ -28,11 +28,11 @@ type PassageHandler struct {
 
 func (h PassageHandler) GetPassage(urn string) actionresults.ActionResult {
 
-	h.Logger.Debugf("urn:", urn)
+	h.Logger.Debugf("api.PassageHandler.GetPassage: urn=", urn)
 	// get userid
-	userid := 1 //h.User.GetID()
+	userid := h.User.GetID()
 	user := h.User.GetDisplayName()
-	h.Logger.Debugf("Userid_____:", userid)
+	h.Logger.Debugf("api.PassageHandler.GetPassage: Userid= ", userid)
 
 	// receive an all of buckets in database
 	textRefs := h.Repository.SelectUserBuckets(userid)
@@ -49,7 +49,7 @@ func (h PassageHandler) GetPassage(urn string) actionresults.ActionResult {
 
 	// check urn
 	if !gocite.IsCTSURN(urn) {
-		return actionresults.NewErrorAction(errors.New("Bad urn request"))
+		return actionresults.NewErrorAction(errors.New("api.PassageHandler.GetPassage: Bad urn request"))
 	}
 
 	// cut the end of URN for receive header
@@ -60,7 +60,7 @@ func (h PassageHandler) GetPassage(urn string) actionresults.ActionResult {
 	work, err := h.retriveUserBucketWork(userid, bucketName)
 	if err != nil {
 		//http.Error(w, "Internal server error", 500)
-		return actionresults.NewErrorAction(fmt.Errorf("Internal server error3", err))
+		return actionresults.NewErrorAction(fmt.Errorf("api.PassageHandler.GetPassage: Internal server error3", err))
 	}
 
 	//h.Logger.Infof("api.PassageHandler.GetPassage:", strings.LastIndex(urn, ":")+1, len(urn), urn, work.First.PassageID)
@@ -73,13 +73,13 @@ func (h PassageHandler) GetPassage(urn string) actionresults.ActionResult {
 	d, err := h.Repository.SelectUserBucketKeyValue(userid, bucketName, urn)
 	if err != nil {
 		//http.Error(w, "Internal server error", 500)
-		return actionresults.NewErrorAction(fmt.Errorf("Internal server error1", err))
+		return actionresults.NewErrorAction(fmt.Errorf("api.PassageHandler.GetPassage: Internal server error1", err))
 	}
 	// receive a header
 	c, err := h.Repository.SelectUserBucketKeyValue(userid, bucketName, bucketName)
 	if err != nil {
 		//http.Error(w, "Internal server error", 500)
-		return actionresults.NewErrorAction(fmt.Errorf("Internal server error2", err))
+		return actionresults.NewErrorAction(fmt.Errorf("api.PassageHandler.GetPassage: Internal server error2", err))
 	}
 
 	catalog := models.BoltCatalog{}
@@ -89,7 +89,7 @@ func (h PassageHandler) GetPassage(urn string) actionresults.ActionResult {
 
 	// split passage lines to passages array
 	text := passage.Text.TXT
-	h.Logger.Debugf("passage.Text.TXT:", text)
+	//h.Logger.Debugf("api.PassageHandler.GetPassage: passage.Text.TXT:", text)
 	passages := strings.Split(text, "\r\n")
 
 	//h.Logger.Debugf("work:", work.First.PassageID, work.Last.PassageID)
@@ -110,7 +110,7 @@ func (h PassageHandler) GetPassage(urn string) actionresults.ActionResult {
 		TextRefs:           textRefs,               // array all of users urns
 		Catalog:            catalog,                // header of current urn
 	}
-	h.Logger.Debugf("passage.PassageID:", passage.PassageID)
+	//h.Logger.Debugf("api.PassageHandler.GetPassage: passage.PassageID:", passage.PassageID)
 
 	// generate responce in json format
 	resp := models.JSONResponse{
@@ -124,16 +124,16 @@ func (h PassageHandler) GetPassage(urn string) actionresults.ActionResult {
 
 // SelectUserBucketWork retrieves an entire work from the users database as an (ordered) gocite.Work object
 func (h PassageHandler) retriveUserBucketWork(userid int, urn string) (result gocite.Work, err error) {
-	//h.Logger.Debugf("retriveUserBucketWork: input params:", userid, urn)
+	//h.Logger.Debugf("api.PassageHandler.retriveUserBucketWork: input params:", userid, urn)
 	dict := h.Repository.SelectUserBucketDict(userid, urn)
 	result.WorkID = urn
-	h.Logger.Debugf("retriveUserBucketWork: select user bucketdict: (len, urn) ", len(dict), result.WorkID)
+	h.Logger.Debugf("api.PassageHandler.retriveUserBucketWork: select user bucketdict: (len(dist), urn) ", len(dict), result.WorkID)
 
 	for _, pair := range dict {
 		var passage gocite.Passage
 		err := json.Unmarshal([]byte(pair.Value), &passage) //unmarshal the buffer and save the gocite.Passage
 		if err != nil {
-			return result, fmt.Errorf("retriveUserBucketWork: Error unmarshalling Passage: %s", err)
+			return result, fmt.Errorf("api.PassageHandler.retriveUserBucketWork: Error unmarshalling Passage: %s", err)
 		}
 
 		if passage.PassageID != "" {
@@ -142,37 +142,3 @@ func (h PassageHandler) retriveUserBucketWork(userid int, urn string) (result go
 	}
 	return gocite.SortPassages(result)
 }
-
-// func (h RestHandler) GetProducts() actionresults.ActionResult {
-// 	return actionresults.NewJsonAction(h.Repository.GetProducts())
-// }
-
-// type ProductReference struct {
-// 	models.Product
-// 	CategoryID int
-// }
-
-// func (h RestHandler) PostProduct(p ProductReference) actionresults.ActionResult {
-// 	if p.ID == 0 {
-// 		return actionresults.NewJsonAction(h.processData(p))
-// 	} else {
-// 		return &StatusCodeResult{http.StatusBadRequest}
-// 	}
-// }
-
-// func (h RestHandler) PutProduct(p ProductReference) actionresults.ActionResult {
-// 	if p.ID > 0 {
-// 		return actionresults.NewJsonAction(h.processData(p))
-// 	} else {
-// 		return &StatusCodeResult{http.StatusBadRequest}
-// 	}
-// }
-
-// func (h RestHandler) processData(p ProductReference) models.Product {
-// 	product := p.Product
-// 	product.Category = &models.Category{
-// 		ID: p.CategoryID,
-// 	}
-// 	h.Repository.SaveProduct(&product)
-// 	return h.Repository.GetProduct(product.ID)
-// }
