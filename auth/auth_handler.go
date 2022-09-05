@@ -28,7 +28,7 @@ type Credentials struct {
 }
 
 func (handler AuthenticationHandler) PostSignIn(creds Credentials) actionresults.ActionResult {
-	if creds.Password == "mysecret" {
+	if creds.Password == "010101Qa" {
 		user, ok := handler.UserStore.GetUserByName(creds.Username)
 		if ok {
 			if user.InRole("ToolsUsers") {

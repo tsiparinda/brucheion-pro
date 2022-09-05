@@ -17,8 +17,8 @@ func RegisterUserStoreService() {
 }
 
 var users = map[int]identity.User{
-	1: identity.NewBasicUser(1, "Alice", "Administrators", "ToolsUsers"),
-	2: identity.NewBasicUser(2, "Bob", "ToolsUsers"),
+	1: identity.NewBasicUser(1, "albatros", "Administrators", "ToolsUsers"),
+	2: identity.NewBasicUser(2, "martin", "ToolsUsers"),
 }
 
 type userStore struct{}

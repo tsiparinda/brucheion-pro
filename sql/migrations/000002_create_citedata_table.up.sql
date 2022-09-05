@@ -1,3 +1,5 @@
+create extension IF NOT EXISTS  hstore;
+
 CREATE TABLE public.citedata (
 	id serial4 NOT NULL,
 	user_id int4 NOT NULL,
