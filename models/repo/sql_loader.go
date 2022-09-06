@@ -35,7 +35,9 @@ func openDB(config config.Configuration, logger logging.Logger) (db *sql.DB,
 
 	if db, err = sql.Open(driver, connectionStr); err == nil {
 		logger.Debugf("openDB: db: ", db)
+
 		loadMigrations(config, logger)
+
 		commands = loadCommands(db, config, logger)
 		logger.Debug("openDB: SQL commands loaded")
 
