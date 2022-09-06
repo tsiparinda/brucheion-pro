@@ -1,4 +1,4 @@
-CREATE TABLE IF NOT EXISTS public.users (
+CREATE TABLE IF NOT EXISTS users (
 	id serial4 NOT NULL,
 	username text NOT NULL,
 	password_hash text NOT NULL,

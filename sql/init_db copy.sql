@@ -32,9 +32,9 @@ CREATE TABLE public.citedata (
 );
 
 
--- public.citedata foreign keys
+-- citedata foreign keys
 
-ALTER TABLE public.citedata ADD CONSTRAINT citedata_user_id_fkey FOREIGN KEY (user_id) REFERENCES public.users(id) ON DELETE CASCADE;
+ALTER TABLE citedata ADD CONSTRAINT citedata_user_id_fkey FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE;
 
 CREATE INDEX idx_b_boltdb ON citedata USING BTREE (boltdb);
 CREATE INDEX idx_h_bucket ON citedata USING hash (bucket);

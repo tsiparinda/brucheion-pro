@@ -1,6 +1,6 @@
-insert into public.users (username, password_hash, verification_code) values 
+insert into users (username, password_hash, verification_code) values 
 ('albatros', '01010101', '22222222');
-insert into public.users (username, password_hash, verification_code) values 
+insert into users (username, password_hash, verification_code) values 
 ('martin', '01010101', '22222222');
 
 --insert into citedata (user_id, bucket, boltdb) values 
