@@ -1,7 +1,7 @@
 GO=go
 NPM=cd app && npm
 BIN=Brucheion
-NODE_MODULES=app/node_modules
+NODE_MODULES=files/app/node_modules
 
 .PHONY: all dev build release app test clean deps
 
@@ -32,5 +32,5 @@ dev:
 
 deps: $(NODE_MODULES)
 
-$(NODE_MODULES): app/package.json app/package-lock.json
+$(NODE_MODULES): files/app/package.json files/app/package-lock.json
 	$(NPM) install
