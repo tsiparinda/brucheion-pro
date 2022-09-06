@@ -95,17 +95,27 @@ func loadMigrations(config config.Configuration, logger logging.Logger) {
 
 		if config.GetBoolDefault("sql:alwaysReset", true) {
 			logger.Debugf("loadMigrations: alwaysReset is true, downing migrate: ", m, err)
+			if config.GetBoolDefault("sql:migrationsForce", false) {
+				version := config.GetIntDefault("sql:migrationsVersion", -1)
+				if err := m.Force(version); err != nil {
+					logger.Debugf("loadMigrations: error in Force version %v: ", version, err)
+				}
+			}
 			if err := m.Down(); err != nil {
 				logger.Debugf("loadMigrations: downing migrate ends with error: ", err)
 			}
 
 		}
 		logger.Debugf("loadMigrations: start to up migrations...")
-		// or m.Step(2) if you want to explicitly set the number of migrations to run
+		//  m.Force(1) if you want to explicitly set the number of migrations to run and reset dirty flag
+		// m.Steps(1) for up to one step
+		version, dirty, err := m.Version()
+		logger.Debugf("loadMigrations: before run migration: version %d, dirty %v, error %s", version, dirty, err)
 		if err := m.Up(); err != nil {
 			logger.Debugf("loadMigrations: up migrations ends with error: ", err)
 		}
-
+		version, dirty, err = m.Version()
+		logger.Debugf("loadMigrations: after run migration: version %d, dirty %v, error %s", version, dirty, err)
 	} else {
 		logger.Debugf("loadMigrations: Error migrate:  ", err)
 	}

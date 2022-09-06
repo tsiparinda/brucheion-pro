@@ -37,6 +37,8 @@
                 "connectionUrl": "postgres://postgres:postgres@192.168.18.1:5432/brucheion?sslmode=disable",
                 "migrationsPath": "file://./sql/migrations",
                 "alwaysReset": true,
+                "migrationsForce": true,
+                "migrationsVersion": 3,
                 "commands": {
                     "SelectUserBucketDict": "sql/pg_sel_userbucketdict.sql", 
                     "SelectUserBuckets": "sql/pg_sel_userbuckets.sql",
