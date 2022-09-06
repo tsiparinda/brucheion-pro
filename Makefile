@@ -1,5 +1,5 @@
 GO=go
-NPM=cd app && npm
+NPM=cd files/app && npm
 BIN=Brucheion
 NODE_MODULES=files/app/node_modules
 
