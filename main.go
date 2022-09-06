@@ -77,7 +77,8 @@ func main() {
 
 	registerServices()
 	//services.Call(func(repo models.Repository) { repo.LoadMigrations() })
-	//repo.LoadMigrations( config.Configuration,  logging.Logger)
+
+	//repo.LoadMigrations(config.Configuration, logging.Logger)
 
 	results, err := services.Call(http.Serve, createPipeline())
 	if err == nil {

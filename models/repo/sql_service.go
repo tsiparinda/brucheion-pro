@@ -25,6 +25,7 @@ func RegisterSqlRepositoryService() {
 		loadOnce.Do(func() {
 
 			db, commands = openDB(config, logger)
+
 		})
 		repo := &SqlRepository{
 			Configuration: config,
