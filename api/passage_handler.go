@@ -60,7 +60,7 @@ func (h PassageHandler) GetPassage(urn string) actionresults.ActionResult {
 	work, err := h.retriveUserBucketWork(userid, bucketName)
 	if err != nil {
 		//http.Error(w, "Internal server error", 500)
-		return actionresults.NewErrorAction(fmt.Errorf("api.PassageHandler.GetPassage: Internal server error3", err))
+		return actionresults.NewErrorAction(fmt.Errorf("api.PassageHandler.GetPassage: Internal server error3 %v", err))
 	}
 
 	//h.Logger.Infof("api.PassageHandler.GetPassage:", strings.LastIndex(urn, ":")+1, len(urn), urn, work.First.PassageID)
@@ -73,13 +73,13 @@ func (h PassageHandler) GetPassage(urn string) actionresults.ActionResult {
 	d, err := h.Repository.SelectUserBucketKeyValue(userid, bucketName, urn)
 	if err != nil {
 		//http.Error(w, "Internal server error", 500)
-		return actionresults.NewErrorAction(fmt.Errorf("api.PassageHandler.GetPassage: Internal server error1", err))
+		return actionresults.NewErrorAction(fmt.Errorf("api.PassageHandler.GetPassage: Internal server error1 %v", err))
 	}
 	// receive a header
 	c, err := h.Repository.SelectUserBucketKeyValue(userid, bucketName, bucketName)
 	if err != nil {
 		//http.Error(w, "Internal server error", 500)
-		return actionresults.NewErrorAction(fmt.Errorf("api.PassageHandler.GetPassage: Internal server error2", err))
+		return actionresults.NewErrorAction(fmt.Errorf("api.PassageHandler.GetPassage: Internal server error2 %v", err))
 	}
 
 	catalog := models.BoltCatalog{}
