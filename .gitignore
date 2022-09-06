@@ -1,2 +1,22 @@
-*.exe
+# OS-related
+Thumbs.db
+.DS_Store
+
+#providers.json
+.session-key
+
+# User data
+*.db
 .vscode
+*.exe
+image_archive/*
+cex/*
+!cex/.gitkeep
+!image_archive/test/
+
+# Logs
+*.log
+
+# Build
+brucheion
+release/

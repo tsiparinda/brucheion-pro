@@ -1,6 +1,6 @@
 GO=go
 NPM=cd files/app && npm
-BIN=Brucheion
+BIN=brucheion
 NODE_MODULES=files/app/node_modules
 
 .PHONY: all dev build release app test clean deps
@@ -20,7 +20,7 @@ app:
 
 test: app
 	$(GO) test -v ./...
-	cd app && npm test
+	cd files/app && npm test
 
 clean:
 	$(GO) clean
