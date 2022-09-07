@@ -207,7 +207,8 @@ async function initOpenSeadragon() {
 		allowRotation: false,        // Make it possible to rotate the guidelines (by double clicking them)
 		horizontalGuideButton: null, // Element for horizontal guideline button
 		verticalGuideButton: null,   // Element for vertical guideline button
-		prefixUrl: defaultHost + "/files/static/css/images/",             // Images folder
+		// prefixUrl: defaultHost + "/files/static/css/images/",             // Images folder
+		prefixUrl: defaultHost + '/files/app/src/lib/openseadragon/images/',
 		removeOnClose: false,        // Remove guidelines when viewer closes
 		useSessionStorage: false,    // Save guidelines in sessionStorage
 		navImages: {
@@ -696,7 +697,8 @@ async function getViewerByURN(imgUrn) {
 	if (newType == "localDZ" || newType == "") {
 		tmpviewer = OpenSeadragon({
 			id: 'image_imageContainer',
-			prefixUrl: defaultHost + '/files/static/css/images/',
+			// prefixUrl: defaultHost + '/files/static/css/images/',
+			prefixUrl: defaultHost + '/files/app/src/lib/openseadragon/images/',
 			crossOriginPolicy: "Anonymous",
 			defaultZoomLevel: 1,
 			tileSources: getTileSources(imgUrn),
@@ -706,7 +708,8 @@ async function getViewerByURN(imgUrn) {
 	} else if (newType == "static") {
 		tmpviewer = OpenSeadragon({
 			id: 'image_imageContainer',
-			prefixUrl: defaultHost + '/files/static/css/images/',
+			// prefixUrl: defaultHost + '/files/static/css/images/',
+			prefixUrl: defaultHost + '/files/app/src/lib/openseadragon/images/',
 			defaultZoomLevel: 1,
 			tileSources: {
 				type: 'image',
@@ -719,7 +722,8 @@ async function getViewerByURN(imgUrn) {
 	} else if (newType == "iiif") {
 		tmpviewer = OpenSeadragon({
 			id: 'image_imageContainer',
-			prefixUrl: defaultHost + '/files/static/css/images/',
+			// prefixUrl: defaultHost + '/files/static/css/images/',
+			prefixUrl: defaultHost + '/files/app/src/lib/openseadragon/images/',
 			crossOriginPolicy: "Anonymous",
 			defaultZoomLevel: 1,
 			tileSources: newURL,

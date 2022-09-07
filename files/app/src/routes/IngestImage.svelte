@@ -1,6 +1,6 @@
 <script>
   import { stringify as stringifyQuery } from 'qs'
-  import OpenSeadragon from 'openseadragon'
+  import OpenSeadragon from '../lib/openseadragon/openseadragon'
   import { onMount } from 'svelte'
   import { navigate } from 'svelte-routing'
   import FormLine from '../components/FormLine.svelte'
