@@ -93,9 +93,6 @@ func loadMigrations(config config.Configuration, logger logging.Logger) {
 
 		logger.Debugf("loadMigrations: migrating: ", m, err)
 
-		logger.Debugf("loadMigrations: os.Environ: ", os.Environ())
-		logger.Debugf("loadMigrations: config: ", config)
-
 		if config.GetBoolDefault("sql:alwaysReset", true) {
 			logger.Debugf("loadMigrations: alwaysReset is true, downing migrate: ", m, err)
 			if config.GetBoolDefault("sql:migrationsForce", false) {
