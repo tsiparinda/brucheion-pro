@@ -59283,7 +59283,7 @@ var app = (function () {
     })
 
     route3 = new Route({
-      props: { path: '*', component: IngestCex },
+      props: { path: '*', component: NotFound },
       $$inline: true,
     })
 
@@ -59364,10 +59364,10 @@ var app = (function () {
       c: function create() {
         style = element('style')
         style.textContent =
-          ':root {\r\n      --toolbar-bg-color: rgb(240, 240, 240);\r\n      --toolbar-text-color: rgb(50, 50, 50);\r\n      --toolbar-border-color: rgb(200, 200, 200);\r\n      --pane-bg-color: rgba(248, 248, 248);\r\n    }'
+          ':root {\n      --toolbar-bg-color: rgb(240, 240, 240);\n      --toolbar-text-color: rgb(50, 50, 50);\n      --toolbar-border-color: rgb(200, 200, 200);\n      --pane-bg-color: rgba(248, 248, 248);\n    }'
         t1 = space()
         create_component(router.$$.fragment)
-        add_location(style, file$a, 12, 2, 376)
+        add_location(style, file$a, 12, 2, 364)
       },
       l: function claim(nodes) {
         throw new Error(

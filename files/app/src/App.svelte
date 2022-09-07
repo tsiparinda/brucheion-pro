@@ -24,5 +24,5 @@
   <Route path="/tools/section/PassageOverview" component={PassageOverview} />
   <Route path="/tools/section/IngestCEX" component={IngestCex} />
   <Route path="/ingest/image" component={IngestImage} />
-  <Route path="*" component={IngestCex} />
+  <Route path="*" component={NotFound} />
 </Router>
