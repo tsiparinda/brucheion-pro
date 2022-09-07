@@ -6,6 +6,7 @@
   import NotFound from './routes/NotFound.svelte'
 
   export let url = location.pathname
+  console.log(url)
 </script>
 
 <svelte:head>
@@ -23,5 +24,5 @@
   <Route path="/tools/section/PassageOverview" component={PassageOverview} />
   <Route path="/tools/section/IngestCEX" component={IngestCex} />
   <Route path="/ingest/image" component={IngestImage} />
-  <Route path="*" component={NotFound} />
+  <Route path="*" component={IngestCex} />
 </Router>
